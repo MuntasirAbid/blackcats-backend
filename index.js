@@ -86,7 +86,6 @@ async function run() {
       }
     })
 
-
     // books
 
     app.get("/categories", async (req, res) => {
@@ -100,6 +99,7 @@ async function run() {
       console.log(genre)
       const query = { genre: genre, status: "Available" }
       const books = await bookCollection.find(query).toArray()
+      console.log(books)
 
       res.send(books)
     })
