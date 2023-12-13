@@ -10,5 +10,41 @@
     {
         "genre": "Kids Collection",
         "img": "https://media.istockphoto.com/id/537307742/photo/cute-stylish-children.jpg?s=612x612&w=0&k=20&c=WU-V7DTbtBAYlmknXRaPR3werEx2CjsUgxUjosi3svU="
+    },
+    {
+        "genre": "Pet Supplies",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIBzkVacyn0be8ahSBWfNk7CAFTEvYpXC_Yb9c7CNdC0sJdlisg-1ELPZbXaqc00EHmwU&usqp=CAU"
+    },
+    {
+        "genre": "Outdoors Accessories",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9r0R8c81CHb3vwVlKWgjzSHzE2RDqaMjImOs8Aa4HNPWohImqwceWCMHD0wTVHNlDP5k&usqp=CAU"
+    },
+    {
+        "genre": "Musical Instruments",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVRQ--DxyrqvNIBgLx5rLkPvayBT7t88gWAQ&usqp=CAU"
+    },
+    {
+        "genre": "Office Products",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEnCH6Tthpex3QA2JAWMjfh7GDsvOBukfL1w&usqp=CAU"
+    },
+    {
+        "genre": "Sell Phones & Accessories",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5GojdA_Fnstn2nSbDACwKwyahfri5yHY0URl8a0XJI_9f2xw5U3KJF2ACBpNFlFzN6LA&usqp=CAU"
+    },
+    {
+        "genre": "Home & Garden",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNIRjlrpO8ff6B_BYTNlvMVNjFhKxktx5egA&usqp=CAU"
+    },
+    {
+        "genre": "Books",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-MSHDeRRp2m86wMKYkqx88spBZvID-b4g2A&usqp=CAU"
+    },
+    {
+        "genre": "Sports",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxEZRgXdjXvbeD__Mq4MlHtcj9M397h4FIbw&usqp=CAU"
+    },
+    {
+        "genre": "Software",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcYI0uAhwz0fHlcwU6SpqLN-1IXKX_wimSig&usqp=CAU"
     }
 ]

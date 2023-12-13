@@ -39,11 +39,11 @@ function verifyJWT(req, res, next) {
 async function run() {
   try {
 
-    const bookCollection = client.db("bookShopDB").collection("books")
-    const categoriesCollection = client.db("bookShopDB").collection("categories")
-    const usersCollection = client.db("bookShopDB").collection("users")
-    const bookingsCollection = client.db("bookShopDB").collection("bookings")
-    const paymentsCollection = client.db("bookShopDB").collection("payments")
+    const productsCollection = client.db("buyAndSellDB").collection("products")
+    const categoriesCollection = client.db("buyAndSellDB").collection("categories")
+    const usersCollection = client.db("buyAndSellDB").collection("users")
+    const bookingsCollection = client.db("buyAndSellDB").collection("bookings")
+    const paymentsCollection = client.db("buyAndSellDB").collection("payments")
 
     // admin verify 
     const verifyAdmin = async (req, res, next) => {
@@ -86,7 +86,7 @@ async function run() {
       }
     })
 
-    // books
+    // products
 
     app.get("/categories", async (req, res) => {
       const query = {}
@@ -98,34 +98,34 @@ async function run() {
       const genre = req.params.name;
       console.log(genre)
       const query = { genre: genre, status: "Available" }
-      const books = await bookCollection.find(query).toArray()
-      console.log(books)
+      const products = await productsCollection.find(query).toArray()
+      console.log(products)
 
-      res.send(books)
+      res.send(products)
     })
-    app.get("/booksAd", async (req, res) => {
+    app.get("/productsAd", async (req, res) => {
       // const genre = req.params.name;
       // console.log(genre)
       const query = { advertise: true, status: "Available" }
-      const books = await bookCollection.find(query).toArray()
+      const products = await productsCollection.find(query).toArray()
 
-      res.send(books)
+      res.send(products)
     })
-    app.get("/books/reported", async (req, res) => {
+    app.get("/products/reported", async (req, res) => {
 
       const query = { reported: true }
 
-      const books = await bookCollection.find(query).toArray()
+      const products = await productsCollection.find(query).toArray()
 
-      res.send(books)
+      res.send(products)
     })
-    app.delete("/books/reported/:id", async (req, res) => {
+    app.delete("/products/reported/:id", async (req, res) => {
       const id = req.params.id
       const query = { _id: ObjectId(id) }
 
-      const books = await bookCollection.deleteOne(query)
+      const products = await productsCollection.deleteOne(query)
 
-      res.send(books)
+      res.send(products)
     })
 
     app.get('/bookGenre', async (req, res) => {
@@ -136,16 +136,16 @@ async function run() {
 
     })
 
-    app.get('/advertiseBooks', async (req, res) => {
+    app.get('/advertiseProducts', async (req, res) => {
       const query = { advertise: true, status: "Available" }
-      const books = await bookCollection.find(query).limit(10).toArray()
-      res.send(books)
+      const products = await productsCollection.find(query).limit(10).toArray()
+      res.send(products)
     })
 
-    app.post('/books', verifyJWT, verifySeller, async (req, res) => {
+    app.post('/products', verifyJWT, verifySeller, async (req, res) => {
       const user = req.body
       const post = Date()
-      const result = await bookCollection.insertOne({ ...user, post: post })
+      const result = await productsCollection.insertOne({ ...user, post: post })
       console.log(result)
       res.send(result)
     })
@@ -208,7 +208,7 @@ async function run() {
           verify: true
         },
       };
-      const result = await bookCollection.updateOne(filter, updateDoc)
+      const result = await productsCollection.updateOne(filter, updateDoc)
       const resultUser = await usersCollection.updateOne(query, updateDoc)
       console.log(result)
       res.send(resultUser)
@@ -217,7 +217,7 @@ async function run() {
     // temporary update
 
 
-    // app.get('/allBooks', async (req, res) => {
+    // app.get('/allproducts', async (req, res) => {
 
     //   const query = {}
 
@@ -227,7 +227,7 @@ async function run() {
     //       reported:false
     //     },
     //   };
-    //   const result = await bookCollection.updateMany(query, updateDoc)
+    //   const result = await productsCollection.updateMany(query, updateDoc)
     //   console.log(result)
     //   res.send(result)
     // })
@@ -262,35 +262,35 @@ async function run() {
     })
 
 
-    // seller-books
+    // seller-products
 
-    app.get('/books/:email', async (req, res) => {
+    app.get('/products/:email', async (req, res) => {
       const email = req.params.email;
       console.log(email)
       const query = { sellerEmail: email }
-      const books = await bookCollection.find(query).toArray()
+      const products = await productsCollection.find(query).toArray()
 
-      res.send(books)
+      res.send(products)
     })
     app.get('/bookings/:email', verifyJWT, async (req, res) => {
       const email = req.params.email;
       console.log(email)
       const query = { sellerEmail: email }
-      const books = await bookingsCollection.find(query).toArray()
+      const products = await bookingsCollection.find(query).toArray()
 
-      res.send(books)
+      res.send(products)
     })
 
-    app.delete('/books/:id', async (req, res) => {
+    app.delete('/products/:id', async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) }
-      const result = await bookCollection.deleteOne(query)
+      const result = await productsCollection.deleteOne(query)
       console.log(result)
       res.send(result)
     })
 
 
-    app.put('/books/:id', verifyJWT, verifySeller, async (req, res) => {
+    app.put('/products/:id', verifyJWT, verifySeller, async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) }
 
@@ -301,7 +301,7 @@ async function run() {
           advertise: true
         },
       };
-      const result = await bookCollection.updateOne(query, updateDoc, options)
+      const result = await productsCollection.updateOne(query, updateDoc, options)
       console.log(result)
       res.send(result)
     })
@@ -340,16 +340,16 @@ async function run() {
           transactionId: payment.transactionId
         }
       }
-      const updatedBook = {
+      const updatedProduct = {
         $set: {
           status: "Sold",
 
         }
       }
       const updatedResult = await bookingsCollection.updateOne(filter, updatedDoc)
-      const updatedbook = await bookCollection.updateOne(query, updatedBook)
+      const updatedProducts = await productsCollection.updateOne(query, updatedProduct)
 
-      console.log(updatedbook, updatedResult)
+      console.log(updatedProducts, updatedResult)
       res.send(result);
     })
 
@@ -371,7 +371,7 @@ async function run() {
       res.send(result)
     })
 
-    app.put("/books/report/:id", async (req, res) => {
+    app.put("/products/report/:id", async (req, res) => {
       const id = req.params.id;
 
       const query = { _id: ObjectId(id) }
@@ -382,11 +382,9 @@ async function run() {
         }
       }
 
-      const reportItem = await bookCollection.updateOne(query, upDoc)
+      const reportItem = await productsCollection.updateOne(query, upDoc)
       res.send(reportItem)
     })
-
-
 
   }
 
@@ -399,14 +397,8 @@ async function run() {
 
 run().catch(er => console.error(er))
 
-
-
-
-
-
-
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Server running')
 })
 
 app.listen(port, () => {
