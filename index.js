@@ -151,6 +151,31 @@ async function run() {
     })
 
 
+    app.get('/product/:productId', async (req, res) => {
+      try {
+        const productId = req.params.productId;
+
+        // Debugging statement
+        console.log('Received productId:', productId);
+
+        // Find the specific product using the ObjectId
+        const product = await productsCollection.findOne({ _id: ObjectId(productId) });
+
+        if (!product) {
+          return res.status(404).json({ message: 'Product not found' });
+        }
+
+        // Respond with the specific product
+        res.json(product);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error from here' });
+      }
+    });
+
+
+
+
     // users
 
     app.post("/users", async (req, res) => {
@@ -272,6 +297,7 @@ async function run() {
 
       res.send(products)
     })
+
     app.get('/bookings/:email', verifyJWT, async (req, res) => {
       const email = req.params.email;
       console.log(email)
