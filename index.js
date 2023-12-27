@@ -137,9 +137,13 @@ async function run() {
     })
 
     app.get('/advertiseProducts', async (req, res) => {
-      const query = { advertise: true, status: "Available" }
-      const products = await productsCollection.find(query).limit(10).toArray()
-      res.send(products)
+      const page = parseInt(req.query.page);
+      const size = parseInt(req.query.size);
+      const query = { advertise: true, status: "Available" };
+      const cursor = productsCollection.find(query);
+      const advertiseItems = await cursor.skip(page * size).limit(size).toArray();
+      const count = await productsCollection.estimatedDocumentCount();
+      res.send({ count, advertiseItems });
     })
 
     app.post('/products', verifyJWT, verifySeller, async (req, res) => {
