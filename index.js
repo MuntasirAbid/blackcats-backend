@@ -143,11 +143,19 @@ async function run() {
     app.get('/advertiseProducts', async (req, res) => {
       const page = parseInt(req.query.page);
       const size = parseInt(req.query.size);
-
+      const search = req.query.search;
       // const query = { advertise: true, status: "Available",productQuantity: { $gt: 0 }};
 
-
-      const query = { advertise: true, status: "Available" };
+      let query = {
+        advertise: true, status: "Available"
+      };
+      if (search.length) {
+        query = {
+          $text: {
+            $search: search
+          }
+        }
+      }
 
       const cursor = productsCollection.find(query);
       const advertiseItems = await cursor.skip(page * size).limit(size).toArray();
