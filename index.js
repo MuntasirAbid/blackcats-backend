@@ -9,7 +9,7 @@ const app = express()
 const port = process.env.PORT || 10000
 
 
-app.use(cors())
+app.use(cors());
 app.use(express.json())
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.tkhdgb3.mongodb.net/?retryWrites=true&w=majority`;
@@ -149,12 +149,12 @@ async function run() {
       let query = {
         advertise: true, status: "Available"
       };
-      if (search.length) {
+      if (search) {
         query = {
           $text: {
             $search: search
           }
-        }
+        };
       }
 
       const cursor = productsCollection.find(query);
@@ -178,9 +178,6 @@ async function run() {
       try {
         const productId = req.params.productId;
 
-        // Debugging statement
-
-
         // Find the specific product using the ObjectId
         const product = await productsCollection.findOne({ _id: ObjectId(productId) });
 
@@ -195,9 +192,6 @@ async function run() {
         res.status(500).json({ message: 'Internal Server Error from here' });
       }
     });
-
-
-
 
     // users
 
