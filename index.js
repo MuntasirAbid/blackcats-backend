@@ -210,6 +210,7 @@ async function run() {
 
       res.send(user.role === "Seller")
     })
+
     app.get("/users/admin/:email", async (req, res) => {
       const email = req.params.email;
       const query = { email: email }
@@ -220,13 +221,16 @@ async function run() {
 
     // seller
     app.get("/sellers", verifyJWT, verifyAdmin, async (req, res) => {
+      try {
+        const query = { role: "Seller" };
+        const sellers = await usersCollection.find(query).toArray();
+        res.send(sellers);
+      } catch (error) {
+        console.error("Error fetching sellers:", error);
+        res.status(500).send({ error: "Internal Server Error" });
+      }
+    });
 
-      const query = { role: "Seller" }
-      const sellers = await usersCollection.find(query).toArray()
-
-
-      res.send(sellers)
-    })
 
     app.delete('/sellers/:id', verifyJWT, verifyAdmin, async (req, res) => {
       const id = req.params.id;
