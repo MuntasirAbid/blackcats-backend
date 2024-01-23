@@ -8,7 +8,6 @@ const stripe = require("stripe")(process.env.STRIPE_SK);
 const app = express()
 const port = process.env.PORT || 10000
 
-
 app.use(cors());
 app.use(express.json())
 
