@@ -165,7 +165,7 @@ async function run() {
     });
 
 
-    app.post('/products', verifySeller, async (req, res) => {
+    app.post('/products', async (req, res) => {
       const user = req.body
       const post = Date()
       const result = await productsCollection.insertOne({ ...user, post: post })
