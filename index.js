@@ -196,12 +196,19 @@ async function run() {
     // users
 
     app.post("/users", async (req, res) => {
-      const user = req.body
-      const result = await usersCollection.insertOne(user)
+      try {
+        const user = req.body;
+        const result = await usersCollection.insertOne(user);
 
-      res.send(result)
-    })
+        // Generate JWT token
+        const token = jwt.sign({ userId: result.insertedId }, process.env.TOKEN, { expiresIn: '1d' });
 
+        // Send the token along with the response
+        res.status(201).json({ token: token, result: result });
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    });
 
     app.get("/users/seller/:email", async (req, res) => {
       const email = req.params.email;
@@ -352,7 +359,6 @@ async function run() {
 
       res.send(result)
     })
-
 
     // booking
 
